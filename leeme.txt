@@ -1,0 +1,1 @@
+estan los codigos separados proximamente (mañana los voy a unir todos en uno y colocarlos en headers)
