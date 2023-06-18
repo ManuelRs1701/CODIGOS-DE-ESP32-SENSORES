@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP32 Server</title>
+  <!-- conexion a AXIOS -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h1>ESP32 Server</h1>
+  <!-- declaracion de los botones que llamaran a las funciones GET -->
+  <button onclick="button1()">Button 1</button>
+  <button onclick="button2()">Button 2</button><br>
+  <button onclick="button3()">Button 3</button>
+  <button onclick="button4()">Button 4</button><br>
+  <button onclick="actualizarDatos()">data</button><br>
+  <!-- Aqui se reemplazaran los valores de los sensores-->
+  <p>Temperatura: <span id="temperatura"></span></p>
+  <p>Presion: <span id="presion"></span></p>
+  <p>Corriente: <span id="corriente"></span></p>
+    <!-- Funciones para mandar los GETs -->
+  <script>
+    function button1() {
+      axios.get('/button1')
+        .then(function (response) {
+          console.log('Button 1 clicked');
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    function button2() {
+      axios.get('/button2')
+        .then(function (response) {
+          console.log('Button 2 clicked');
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    function button3() {
+      axios.get('/button3')
+        .then(function (response) {
+          console.log('Button 3 clicked');
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    function button4() {
+      axios.get('/button4')
+        .then(function (response) {
+          console.log(response);
+          console.log('Button 4 clicked');
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+
+    function actualizarDatos() {
+      axios.get('/data')
+        .then(function (response) {  
+          console.log(response.data);  
+          datos = response.data;
+          valorT = datos.temperatura.toFixed(2);
+          valorP = datos.presion.toFixed(2);
+          valorC = datos.corriente;
+
+          temperatura = document.getElementById("temperatura");
+          temperatura.innerHTML = valorT;
+          temperatura = document.getElementById("presion");
+          temperatura.innerHTML = valorP;
+          temperatura = document.getElementById("corriente");
+          temperatura.innerHTML = valorC;
+
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+    
+    setInterval(actualizarDatos, 1500);
+  </script>
+</body>
+</html>
